@@ -1,0 +1,30 @@
+{
+  "id": "FEAT-003",
+  "type": "feat",
+  "description": "TLA+ Export - Create the lib/tla module with spec generator to convert XState machines to TLA+ specifications and optional TLC model checker integration. This enables formal verification with TLC.",
+  "status": "completed",
+  "steps": [
+    "1. Create lib/tla/index.js - Module entry point that re-exports spec-generator and tlc-runner.",
+    "2. Create lib/tla/spec-generator.js - Implement generateTLASpec(machine, invariants) function. Convert XState states to TLA+ VARIABLE declarations. Convert transitions to TLA+ Next state relation with \\/ disjunction. Convert invariants to TLA+ Invariant formulas. Output valid .tla file content as string. Include proper module header, EXTENDS Naturals/Sequences if needed, Init and Next definitions, Spec == Init /\\ [][Next]_vars.",
+    "3. Create lib/tla/tlc-runner.js - Implement TLCRunner class with methods: checkSpec(tlaContent, options), runFile(tlaFilePath, options). Options include: workers (number), depth (max trace depth). Return results object with {passed, counterexample, stats}. Handle TLC not installed gracefully with clear error message.",
+    "4. Update cds-plugin.js - Add new CLI commands: 'cds mbt extract' (extract machine from @agent service using joule/machine-extractor), 'cds mbt export' (export to TLA+ format using tla/spec-generator), 'cds mbt watch' (runtime validation mode using joule/runtime-adapter).",
+    "5. Update lib/cli/index.js - Add exports for extract, export, watch commands.",
+    "6. Create lib/cli/extract.js - CLI handler for 'cds mbt extract' command. Accept --service option for service name, --output for output file path.",
+    "7. Create lib/cli/export.js - CLI handler for 'cds mbt export' command. Accept --machine option for machine file, --output for TLA+ output file, --invariants for invariants file.",
+    "8. Create lib/cli/watch.js - CLI handler for 'cds mbt watch' command. Accept --port option for connecting to running service, --invariants for invariants to check."
+  ],
+  "acceptance_criteria": [
+    "lib/tla/index.js exports generateTLASpec and TLCRunner",
+    "generateTLASpec() produces valid TLA+ syntax for a simple XState machine",
+    "TLCRunner.checkSpec() returns a result object with passed, counterexample, stats properties",
+    "cds-plugin.js registers extract, export, watch commands",
+    "lib/cli/index.js exports extract, export, watch functions"
+  ],
+  "verification": [
+    "Run: node -e \"const {generateTLASpec} = require('./lib/tla'); const {createMachine} = require('xstate'); const m = createMachine({id:'test',initial:'idle',states:{idle:{on:{START:'running'}},running:{type:'final'}}}); const spec = generateTLASpec(m,[]); console.log(spec.includes('MODULE'))\" - should print true",
+    "Run: node -e \"const {TLCRunner} = require('./lib/tla'); const r = new TLCRunner(); console.log(typeof r.checkSpec)\" - should print function",
+    "Run: npm test -- --passWithNoTests - should succeed"
+  ],
+  "blocked_reason": null,
+  "findings": "All implementation steps completed successfully:\n\n1. Created lib/tla/index.js - exports generateTLASpec, generateTLCConfig, TLCRunner, and helper functions\n2. Created lib/tla/spec-generator.js - comprehensive TLA+ spec generator that:\n   - Converts XState machine states to TLA+ VARIABLE declarations with State_ prefixed constants\n   - Generates TypeOK invariant for type safety\n   - Translates transitions to TLA+ Next state relation with \\/ disjunction\n   - Converts MBT invariants to TLA+ formulas (budgetRespected, retriesBounded, noInvalidCompletion, escalationHasReason)\n   - Outputs complete .tla file with MODULE header, EXTENDS, Init, Next, Spec definitions\n   - Also provides generateTLCConfig() for TLC configuration files\n3. Created lib/tla/tlc-runner.js - TLCRunner class with:\n   - checkSpec(tlaContent, options) - checks spec from string, creates temp files, runs TLC\n   - runFile(tlaFilePath, options) - runs TLC on existing file\n   - Options: workers, depth, timeout, deadlock\n   - Returns {passed, counterexample, stats} with graceful TLC-not-installed handling\n4. Updated cds-plugin.js - registered extract, export, watch subcommands with appropriate options\n5. Updated lib/cli/index.js - exports extract, export, watch functions\n6. Created lib/cli/extract.js - extracts machines from CAP agent services using joule/machine-extractor\n7. Created lib/cli/export.js - exports XState machines to TLA+ using tla/spec-generator\n8. Created lib/cli/watch.js - runtime validation mode using joule/runtime-adapter\n\nAll verifications passed:\n- generateTLASpec() produces valid TLA+ with MODULE keyword\n- TLCRunner.checkSpec is a function\n- Jest tests pass with --passWithNoTests"
+}
