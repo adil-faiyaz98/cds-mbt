@@ -1,0 +1,27 @@
+{
+  "id": "FEAT-006",
+  "type": "docs",
+  "description": "Documentation and CI - Create ARCHITECTURE.md with technical design documentation, API.md with comprehensive API reference, and GitHub Actions CI pipeline for testing and publishing.",
+  "status": "completed",
+  "steps": [
+    "1. Create ARCHITECTURE.md - Document the overall architecture: Core Engine (path-explorer, invariant-builder, report-generator), Joule Integration (machine-extractor, react-templates, runtime-adapter), TLA+ Export (spec-generator, tlc-runner). Include data flow diagrams (ASCII), extension points, design decisions rationale.",
+    "2. Create API.md - Complete API reference with all exported functions: runMBT(machine, invariants, options), explorePaths(machine, options), checkInvariants(paths, invariants), createInvariant(config), validateInvariant(invariant), generateReport(result, options). Document joule module: extractMachine(cdsPath), createReActMachine(config), createA2AMachine(config), createHITLMachine(config), createSubagentMachine(config), RuntimeAdapter class. Document tla module: generateTLASpec(machine, invariants), TLCRunner class. Include parameter types, return types, examples for each.",
+    "3. Create .github/workflows/ci.yml - GitHub Actions workflow: triggers on push/PR to main. Jobs: lint (npm run lint), test (npm test with coverage), build-check (node -e require checks). Matrix for Node.js 18, 20, 22. Upload coverage to codecov. Add npm publish job on tag push.",
+    "4. Update README.md - Add badges for CI status, coverage. Add links to ARCHITECTURE.md and API.md. Update examples section to reflect actual example folders.",
+    "5. Update CHANGELOG.md - Add entries for all new features: Joule agent integration, TLA+ export, new CLI commands, examples, CI pipeline."
+  ],
+  "acceptance_criteria": [
+    "ARCHITECTURE.md explains system design with clear sections for each module",
+    "API.md documents every public function with parameters, return types, and usage examples",
+    ".github/workflows/ci.yml is valid GitHub Actions YAML with lint, test, publish jobs",
+    "README.md links to new documentation files",
+    "CHANGELOG.md reflects all additions in this release"
+  ],
+  "verification": [
+    "Verify ARCHITECTURE.md file exists and contains Core Engine, Joule Integration, TLA+ Export sections",
+    "Verify API.md contains runMBT, createInvariant, extractMachine, generateTLASpec documentation",
+    "Verify .github/workflows/ci.yml is valid YAML (can be checked with yamllint or manual inspection)"
+  ],
+  "blocked_reason": null,
+  "findings": "All documentation and CI files created successfully. ARCHITECTURE.md includes detailed system diagrams, module descriptions, data flow, and design decisions. API.md provides comprehensive documentation for all 25+ public functions including parameters, return types, and usage examples. CI workflow includes lint, test (Node 18/20/22 matrix), build-check, and publish jobs with Codecov integration. README updated with CI and coverage badges plus links to new docs. CHANGELOG updated with all new features including Joule integration, TLA+ export, CLI commands, and examples. All 225 tests pass."
+}
