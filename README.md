@@ -217,8 +217,16 @@ See the [examples/](./examples) folder for complete working examples:
 
 ## Documentation
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical design and system overview
-- [API.md](./API.md) - Complete API reference with examples
+| Document | Description |
+|----------|-------------|
+| [API.md](./API.md) | Complete API reference with examples |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Technical design and system overview |
+| [FAQ.md](./FAQ.md) | Frequently asked questions |
+| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common errors and solutions |
+| [MIGRATION.md](./MIGRATION.md) | Version upgrade guide |
+| [SUPPORT.md](./SUPPORT.md) | Getting help and support channels |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Development workflow and guidelines |
+| [SECURITY.md](./SECURITY.md) | Vulnerability disclosure policy |
 
 ## Related
 
@@ -232,8 +240,9 @@ Contributions welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) first.
 
 ## Support
 
-- Create an [issue](https://github.com/adil-faiyaz/cds-mbt/issues) for bugs
-- Start a [discussion](https://github.com/adil-faiyaz/cds-mbt/discussions) for questions
+See [SUPPORT.md](./SUPPORT.md) for all support options, or:
+- Create an [issue](https://github.com/adil-faiyaz98/cds-mbt/issues) for bugs
+- Start a [discussion](https://github.com/adil-faiyaz98/cds-mbt/discussions) for questions
 
 ## License
 
