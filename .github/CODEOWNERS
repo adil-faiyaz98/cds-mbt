@@ -1,0 +1,17 @@
+# Default owners for everything in the repo
+* @adil-faiyaz98
+
+# Core library
+/lib/ @adil-faiyaz98
+
+# CLI and CDS plugin
+/bin/ @adil-faiyaz98
+
+# Examples require review to ensure they stay in sync with API
+/examples/ @adil-faiyaz98
+
+# CI/CD changes need maintainer approval
+/.github/ @adil-faiyaz98
+
+# Documentation
+*.md @adil-faiyaz98

@@ -79,9 +79,43 @@ jobs:
           node -e "const pkg = require('./lib/tla'); console.log('TLA+ module OK')"
           node -e "console.log('Package version:', require('./package.json').version)"
 
+  example-tests:
+    name: Example CAP Apps
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        example: [order-agent, approval-flow, migration-workflow]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install main package
+        run: npm ci
+
+      - name: Install example dependencies
+        working-directory: examples/${{ matrix.example }}
+        run: npm install
+
+      - name: Run MBT tests
+        working-directory: examples/${{ matrix.example }}
+        run: npm run test:mbt
+
+      - name: Verify CDS service loads
+        working-directory: examples/${{ matrix.example }}
+        run: |
+          npx cds compile srv/ --to json > /dev/null
+          echo "CDS compilation OK for ${{ matrix.example }}"
+
   publish:
     name: Publish to npm
-    needs: [lint, test, build-check]
+    needs: [lint, test, build-check, example-tests]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:

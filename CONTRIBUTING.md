@@ -1,62 +1,45 @@
 # Contributing to cds-mbt
 
-Thank you for your interest in contributing to cds-mbt!
+Thank you for your interest in contributing!
 
-## How to Contribute
-
-### Reporting Bugs
-
-1. Check existing [issues](https://github.com/adil-faiyaz/cds-mbt/issues) first
-2. Create a new issue with:
-   - Clear title
-   - Steps to reproduce
-   - Expected vs actual behavior
-   - Node.js and @sap/cds versions
-
-### Suggesting Features
-
-1. Open a [discussion](https://github.com/adil-faiyaz/cds-mbt/discussions)
-2. Describe the use case
-3. Explain why it would benefit other users
-
-### Pull Requests
+## Getting Started
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Make your changes
-4. Add/update tests
-5. Run tests: `npm test`
-6. Commit with clear message: `git commit -m "feat: add custom invariant support"`
-7. Push: `git push origin feature/my-feature`
-8. Open a Pull Request
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/cds-mbt.git`
+3. Install dependencies: `npm install`
+4. Run tests: `npm test`
 
-### Commit Messages
+## Development Workflow
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+1. Create a branch: `git checkout -b feature/your-feature`
+2. Make changes
+3. Run tests: `npm test`
+4. Run linter: `npm run lint`
+5. Commit with conventional commits: `feat: add new feature`
+6. Push and open a PR
 
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation only
-- `test:` - Adding/updating tests
-- `refactor:` - Code change that neither fixes a bug nor adds a feature
-- `chore:` - Changes to build process or auxiliary tools
+## Commit Messages
 
-### Code Style
+Use [Conventional Commits](https://www.conventionalcommits.org/):
 
-- Use ES6+ features
-- Add JSDoc comments for public APIs
-- Follow existing code patterns
-- No unused dependencies
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation only
+- `test:` adding or updating tests
+- `chore:` maintenance tasks
 
-## Development Setup
+## Testing
 
-```bash
-git clone https://github.com/adil-faiyaz/cds-mbt.git
-cd cds-mbt
-npm install
-npm test
-```
+- Add tests for new functionality
+- Ensure all tests pass before submitting PR
+- Test with actual CAP project in `/examples` when possible
+
+## Code Style
+
+- Follow existing patterns in the codebase
+- Use JSDoc comments for public APIs
+- Keep functions small and focused
 
 ## Questions?
 
-Start a [discussion](https://github.com/adil-faiyaz/cds-mbt/discussions) - we're happy to help!
+Open an issue for discussion before large changes.
