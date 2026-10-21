@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Joule Agent Integration - Create the lib/joule module with machine extractor for @agent-annotated CDS services, pre-built ReAct loop patterns, and runtime validation adapter. This enables MBT for Joule/CAP agents.",
+  "status": "completed",
+  "steps": [
+    "1. Create lib/joule/index.js - Module entry point that re-exports machine-extractor, react-templates, and runtime-adapter.",
+    "2. Create lib/joule/machine-extractor.js - Implement extractMachine(cdsFilePath) function that parses CDS files for @agent annotation. Extract service actions as transitions, map @agent.hitl to approval states. Return XState machine definition. Support both annotation-based and programmatic extraction via extractFromDefinition(serviceDefinition).",
+    "3. Create lib/joule/react-templates.js - Implement createReActMachine(config) for standard ReAct loop (observe -> think -> act -> observe cycle). Implement createA2AMachine(config) for A2A protocol states (initialize -> negotiate -> execute -> finalize). Implement createHITLMachine(config) for human-in-the-loop patterns (request -> pending_approval -> approved/rejected). Implement createSubagentMachine(config) for subagent coordination (spawn -> monitor -> collect -> synthesize). All use xstate createMachine with proper context, guards, actions.",
+    "4. Create lib/joule/runtime-adapter.js - Implement RuntimeAdapter class that connects to a running agent for live validation. Methods: attach(agentInstance), detach(), onStateChange(callback), validateCurrent(invariants). Use event emitter pattern for state change notifications."
+  ],
+  "acceptance_criteria": [
+    "lib/joule/index.js exports extractMachine, createReActMachine, createA2AMachine, createHITLMachine, createSubagentMachine, RuntimeAdapter",
+    "extractMachine() returns a valid XState machine definition from mock CDS content",
+    "All four create*Machine() functions return valid XState machines",
+    "RuntimeAdapter has attach(), detach(), onStateChange(), validateCurrent() methods",
+    "lib/index.js successfully requires and re-exports the joule module"
+  ],
+  "verification": [
+    "Run: node -e \"const j = require('./lib/joule'); console.log(Object.keys(j))\" - should list all exports",
+    "Run: node -e \"const {createReActMachine} = require('./lib/joule'); const m = createReActMachine({id:'test'}); console.log(m.id)\" - should print 'test'",
+    "Run: npm test -- --passWithNoTests - should succeed"
+  ],
+  "blocked_reason": null,
+  "findings": "Successfully created lib/joule module with 4 files: index.js (module entry point), machine-extractor.js (extractMachine, extractFromDefinition, parseAnnotations, buildStates), react-templates.js (createReActMachine, createA2AMachine, createHITLMachine, createSubagentMachine), and runtime-adapter.js (RuntimeAdapter class with attach, detach, onStateChange, validateCurrent methods). All functions return valid XState machines and follow existing code patterns with JSDoc comments. Verified: (1) lib/joule exports 9 items including all required exports, (2) createReActMachine returns machine with correct id, (3) lib/index.js re-exports joule module correctly, (4) npm test passes with no issues."
+}
