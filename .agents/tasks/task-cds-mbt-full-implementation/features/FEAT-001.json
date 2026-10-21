@@ -1,0 +1,39 @@
+{
+  "id": "FEAT-001",
+  "type": "feat",
+  "description": "Core Infrastructure - Create CDS integration module for auto-inclusion in cds test, template files for scaffolding, and configuration files (jest.config.js, .eslintrc.js, .npmignore). This feature establishes the foundation for the package.",
+  "status": "completed",
+  "steps": [
+    "1. Create lib/cds-integration.js - A CDS service integration module that hooks into cds.test to auto-run MBT tests. Export a MbtService class with init(), run() methods. Use cds.log('mbt') for debug output. Follow the pattern in cds-plugin.js for CDS integration.",
+    "2. Create templates/machines/agent-orchestrator.machine.js - Template machine for agent orchestration based on lib/machines/index.js createAgentMachine pattern. Include states: idle, planning, executing, synthesizing, completed, escalated. Include proper context with llmCallsUsed, retryCount, toolResults.",
+    "3. Create templates/machines/workflow.machine.js - Template machine for workflows based on createWorkflowMachine pattern. Include dynamic step generation, approval states, retry logic.",
+    "4. Create templates/machines/migration.machine.js - Template machine for data migration based on createMigrationMachine pattern. Include states: idle, extracting, transforming, loading, verifying, committing, rollingBack, completed, failed.",
+    "5. Create templates/invariants/agent.invariants.js - Template invariants for agents. Export budgetRespected, retriesBounded, noInvalidCompletion, escalationHasReason. Follow the pattern in lib/invariants/index.js.",
+    "6. Create templates/invariants/workflow.invariants.js - Template invariants for workflows. Include stepOrderMaintained, noSkippedRequiredSteps, approvalRequired invariants.",
+    "7. Create templates/invariants/migration.invariants.js - Template invariants for migrations. Include dataConsistent, rollbackAvailable, noPartialCommit invariants.",
+    "8. Create templates/agent.mbt.test.js - Jest test template for agent MBT tests. Follow the pattern in lib/cli/init.js getTestTemplate().",
+    "9. Create templates/workflow.mbt.test.js - Jest test template for workflow MBT tests.",
+    "10. Create templates/migration.mbt.test.js - Jest test template for migration MBT tests.",
+    "11. Create jest.config.js - Standard Jest configuration with testMatch for **/*.test.js, coverage thresholds at 80%, collectCoverageFrom lib/**/*.js.",
+    "12. Create .eslintrc.js - ESLint configuration for ES6+, Node.js environment, with rules matching existing code style (semicolons required, single quotes).",
+    "13. Create .npmignore - Exclude test/, examples/, .github/, *.test.js, coverage/, .eslintrc.js, jest.config.js from npm publish.",
+    "14. Update lib/index.js - Add exports for the new joule and tla modules (require placeholders that will be implemented in FEAT-002 and FEAT-003).",
+    "15. Update package.json - Add 'examples/' to files array, ensure all dependencies are correct."
+  ],
+  "acceptance_criteria": [
+    "lib/cds-integration.js exports MbtService class with init() and run() methods",
+    "All 9 template files exist in templates/ folder with valid JavaScript",
+    "jest.config.js configures Jest properly for the project",
+    ".eslintrc.js provides ESLint rules matching existing code style",
+    ".npmignore excludes test and dev files from npm publish",
+    "npm test passes (even if tests are minimal at this stage)"
+  ],
+  "verification": [
+    "Run: node -e \"require('./lib/cds-integration')\" - should not throw",
+    "Run: node -e \"require('./templates/machines/agent-orchestrator.machine')\" - should export a valid XState machine",
+    "Run: node -e \"require('./templates/invariants/agent.invariants')\" - should export invariants with .all array",
+    "Run: npm test -- --passWithNoTests - should succeed"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}
