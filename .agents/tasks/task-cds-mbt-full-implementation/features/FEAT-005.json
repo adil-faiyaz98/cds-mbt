@@ -1,0 +1,46 @@
+{
+  "id": "FEAT-005",
+  "type": "feat",
+  "description": "Examples - Create three complete mini CAP projects demonstrating MBT usage: migration-workflow (data migration with rollback), order-agent (e-commerce Joule agent with @cap-js/agents), approval-flow (multi-step approval with HITL). Each is a fully runnable CAP project.",
+  "status": "completed",
+  "steps": [
+    "1. Create examples/migration-workflow/package.json - Package file with dependencies on cds-mbt (file:../..), @sap/cds, scripts for test/start.",
+    "2. Create examples/migration-workflow/db/schema.cds - Data model with Products entity (ID, name, price), MigrationLog entity (timestamp, status, count).",
+    "3. Create examples/migration-workflow/srv/migration.cds - Service definition with MigrationService exposing actions: startMigration(), checkStatus(), rollback().",
+    "4. Create examples/migration-workflow/srv/migration.js - Service implementation with state machine logic for extract-transform-load with rollback capability.",
+    "5. Create examples/migration-workflow/test/mbt/machines/migration.machine.js - XState machine modeling the ETL workflow with states: idle, extracting, transforming, loading, verifying, committing, rollingBack, completed, failed.",
+    "6. Create examples/migration-workflow/test/mbt/invariants/migration.invariants.js - Custom invariants: dataConsistent, rollbackAvailable, noPartialCommit.",
+    "7. Create examples/migration-workflow/test/mbt/migration.mbt.test.js - Jest tests running MBT on the migration machine.",
+    "8. Create examples/migration-workflow/README.md - Explanation of business value, how to run, expected output.",
+    "9. Create examples/order-agent/package.json - Package file with dependencies including @cap-js/agents (mock), cds-mbt.",
+    "10. Create examples/order-agent/db/schema.cds - E-commerce data model: Customers, Orders, OrderItems, Products entities.",
+    "11. Create examples/order-agent/srv/order.cds - OrderService with @agent annotation, actions: createOrder(), processPayment(), fulfillOrder().",
+    "12. Create examples/order-agent/srv/order.js - Agent implementation with ReAct loop pattern, tool calls for inventory check, payment processing.",
+    "13. Create examples/order-agent/test/mbt/machines/order-agent.machine.js - XState machine for order processing agent with ReAct states.",
+    "14. Create examples/order-agent/test/mbt/invariants/order-agent.invariants.js - Custom invariants for order processing: paymentBeforeFulfillment, inventoryChecked.",
+    "15. Create examples/order-agent/test/mbt/order-agent.mbt.test.js - Jest tests for order agent MBT.",
+    "16. Create examples/order-agent/README.md - Documentation explaining the e-commerce agent example.",
+    "17. Create examples/approval-flow/package.json - Package file for approval flow example.",
+    "18. Create examples/approval-flow/db/schema.cds - Approval data model: Requests, Approvers, ApprovalSteps entities.",
+    "19. Create examples/approval-flow/srv/approval.cds - ApprovalService with HITL states, actions: submitRequest(), approve(), reject(), escalate().",
+    "20. Create examples/approval-flow/srv/approval.js - Service implementation with multi-level approval workflow.",
+    "21. Create examples/approval-flow/test/mbt/machines/approval.machine.js - XState machine for multi-step approval with HITL patterns.",
+    "22. Create examples/approval-flow/test/mbt/invariants/approval.invariants.js - Custom invariants: approvalChainComplete, noSkippedApprovers, escalationHasReason.",
+    "23. Create examples/approval-flow/test/mbt/approval.mbt.test.js - Jest tests for approval flow MBT.",
+    "24. Create examples/approval-flow/README.md - Documentation for approval workflow example."
+  ],
+  "acceptance_criteria": [
+    "Each example has complete package.json, db/schema.cds, srv/service.cds, srv/service.js, test/mbt/ folder, README.md",
+    "Each example's machine can be loaded and used with runMBT()",
+    "Each example's README explains the business scenario and how to run MBT",
+    "Example machines demonstrate different MBT patterns (migration ETL, agent ReAct, HITL approval)"
+  ],
+  "verification": [
+    "Run: node -e \"require('./examples/migration-workflow/test/mbt/machines/migration.machine')\"",
+    "Run: node -e \"require('./examples/order-agent/test/mbt/machines/order-agent.machine')\"",
+    "Run: node -e \"require('./examples/approval-flow/test/mbt/machines/approval.machine')\"",
+    "Verify each example README.md exists and contains usage instructions"
+  ],
+  "blocked_reason": null,
+  "findings": "All three examples created successfully. Verification results:\n1. migration-workflow: Machine loads (id: 'migration'), README exists with ETL workflow docs\n2. order-agent: Machine loads (id: 'orderAgent'), README exists with ReAct pattern docs\n3. approval-flow: Machine loads (id: 'approvalFlow'), README exists with HITL approval docs\n\nEach example includes:\n- Complete package.json with cds-mbt dependency (file:../..)\n- db/schema.cds with appropriate data model\n- srv/*.cds service definition with actions\n- srv/*.js service implementation\n- test/mbt/machines/*.machine.js XState state machine\n- test/mbt/invariants/*.invariants.js custom invariants\n- test/mbt/*.mbt.test.js Jest test suite\n- README.md with business value, architecture diagrams, usage instructions\n\nAll 225 existing tests pass (8 test suites). All 3 machines load correctly without errors."
+}

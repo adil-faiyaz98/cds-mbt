@@ -1,0 +1,40 @@
+{
+  "name": "order-agent-example",
+  "version": "1.0.0",
+  "description": "E-commerce order processing agent with ReAct loop - cds-mbt example",
+  "main": "srv/order.js",
+  "scripts": {
+    "test": "jest",
+    "test:mbt": "jest test/mbt",
+    "start": "cds serve"
+  },
+  "keywords": [
+    "sap",
+    "cap",
+    "cds-mbt",
+    "agent",
+    "joule",
+    "react",
+    "e-commerce",
+    "example"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cds-mbt": "file:../.."
+  },
+  "devDependencies": {
+    "@sap/cds": "^8.0.0",
+    "jest": "^29.7.0"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "impl": "@cap-js/sqlite",
+        "credentials": {
+          "database": ":memory:"
+        }
+      }
+    }
+  }
+}
