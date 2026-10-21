@@ -1,0 +1,76 @@
+{
+  "name": "cds-mbt",
+  "version": "1.0.0",
+  "description": "Model-Based Testing for SAP CAP agents and services. Catches orchestration bugs that unit tests miss. Integrates with cds test CLI.",
+  "main": "lib/index.js",
+  "bin": {
+    "cds-mbt": "bin/cds-mbt.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint lib bin",
+    "prepublishOnly": "npm test"
+  },
+  "cds": {
+    "requires": {
+      "mbt": {
+        "impl": "./lib/cds-integration.js"
+      }
+    }
+  },
+  "keywords": [
+    "sap",
+    "cap",
+    "cds",
+    "mbt",
+    "model-based-testing",
+    "xstate",
+    "state-machine",
+    "agents",
+    "testing",
+    "formal-verification",
+    "joule",
+    "orchestration"
+  ],
+  "author": "Adil Faiyaz",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adil-faiyaz98/cds-mbt.git"
+  },
+  "homepage": "https://github.com/adil-faiyaz98/cds-mbt#readme",
+  "bugs": {
+    "url": "https://github.com/adil-faiyaz98/cds-mbt/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "lib/",
+    "bin/",
+    "templates/",
+    "examples/",
+    "cds-plugin.js"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "xstate": "^5.18.2",
+    "@xstate/graph": "^2.0.0",
+    "glob": "^10.3.10"
+  },
+  "peerDependencies": {
+    "@sap/cds": ">=7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@sap/cds": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@sap/cds": "^8.0.0",
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0"
+  }
+}

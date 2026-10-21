@@ -1,0 +1,42 @@
+{
+  "project_type": "Node.js npm package for SAP CAP, uses XState for state machines",
+  "language": "JavaScript (ES6+, no TypeScript)",
+  "build_system": "npm, no explicit build step - raw JS files",
+  "test_framework": "Jest (configured in package.json)",
+  "build_command": "N/A - no compile step required",
+  "test_command": "npm test",
+  "verification_instructions": "1. Run npm test to verify all tests pass. 2. For examples, cd into each example directory and run npm install && cds mbt run to verify they work.",
+  "snapshot_or_generated_files": null,
+  "environment_constraints": "Node.js >= 18 required, @sap/cds >= 7.0.0 as peer dependency (optional)",
+  "contribution_requirements": "Follow Conventional Commits format. Use ES6+ features. Add JSDoc comments for public APIs. Follow existing code patterns. No unused dependencies. Run npm test before committing.",
+  "key_patterns": {
+    "file_structure": "lib/ contains main code, bin/ has CLI entry, templates/ for scaffolding, test/ for tests, examples/ for complete mini-projects",
+    "code_style": "Use semicolons, JSDoc comments with @param/@returns, require() for imports, module.exports for exports",
+    "module_pattern": "Each module has an index.js that re-exports submodules. Functions use object destructuring for options.",
+    "invariant_pattern": "Use createInvariant() with name, description, check function returning {passed, message}",
+    "machine_pattern": "Use xstate createMachine() with context, guards, actions defined separately",
+    "cli_integration": "cds-plugin.js registers CLI commands via cds.cli.commands object"
+  },
+  "relevant_files": [
+    "lib/index.js",
+    "lib/core/path-explorer.js",
+    "lib/core/invariant-builder.js",
+    "lib/core/report-generator.js",
+    "lib/invariants/index.js",
+    "lib/machines/index.js",
+    "lib/cli/index.js",
+    "lib/cli/init.js",
+    "lib/cli/run.js",
+    "lib/cli/validate.js",
+    "cds-plugin.js",
+    "bin/cds-mbt.js",
+    "package.json"
+  ],
+  "directory_structure": {
+    "lib/": "Main source code - index.js entry point, core/ for engine, cli/ for commands, invariants/ for built-ins, machines/ for templates",
+    "bin/": "Standalone CLI entry point (cds-mbt.js)",
+    "templates/": "Scaffolding templates used by 'cds mbt init' (to be created)",
+    "test/": "Jest unit tests (to be created)",
+    "examples/": "Complete mini CAP projects demonstrating usage (to be created)"
+  }
+}

@@ -1,0 +1,51 @@
+# Test files
+test/
+*.test.js
+*.spec.js
+coverage/
+
+# Development configuration
+.eslintrc.js
+jest.config.js
+.editorconfig
+
+# GitHub specific
+.github/
+
+# Documentation source (built docs go in npm)
+docs/
+
+# Examples (users can get from GitHub)
+# Removed - examples are now included for reference
+
+# Development artifacts
+.DS_Store
+*.log
+npm-debug.log*
+.nyc_output/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD configuration
+.travis.yml
+.circleci/
+azure-pipelines.yml
+Jenkinsfile
+
+# Task and agent files
+.agents/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
